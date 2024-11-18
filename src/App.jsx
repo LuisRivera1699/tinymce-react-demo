@@ -30,7 +30,7 @@ export default function App() {
   const checkDocument = async () => {
     setLoading(true);
     try {
-      const q = query(collection(db, 'lab-instructions'), where('labId', '==', parseInt(labId)));
+      const q = query(collection(db, 'lab-instructions'), where('labId', '==', labId));
       const querySnapshot = await getDocs(q);
       setExists(!querySnapshot.empty);
       if (querySnapshot.empty) {
@@ -78,7 +78,7 @@ export default function App() {
             db, 'lab-instructions'
           ),
           {
-            'labId': parseInt(labId),
+            'labId': labId,
             'instructions': editorRef.current.getContent()
           }
         );
@@ -96,12 +96,9 @@ export default function App() {
         <label>Lab ID</label>
         <select id="labSelect" value={labId} onChange={handleSelectChange}>
           <option value="">-- Please select a lab --</option>
-          <option value="1">Find MAC Address</option>
-          <option value="2">Inspect an Ethernet Frame</option>
-          <option value="3">Advanced Network Scanning Techniques</option>
-          <option value="4">Introduction to Intrusion Detection Systems</option>
-          <option value="5">Malware Analysis Using Static and Dynamic Techniques</option>
-          <option value="6">Threat Intelligence and IOC (Indicators of Compromise)</option>
+          <option value="CSY102">CSY 102</option>
+          <option value="DBST160">DBST 160</option>
+          <option value="ITCC101">ITCC 101</option>
         </select>
         {labId && <p>Selected Lab ID: {labId}</p>}
         {exists && <p>Selected lab already with data, you will update it.</p>}
